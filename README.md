@@ -1,6 +1,6 @@
 # OneOCR for Snipaste
 
-Enable Windows Snipping Tool's offline OCR (OneOCR) in Snipaste.
+Use Windows Snipping Tool's offline OCR (OneOCR) in Snipaste.
 
 ## Usage
 
