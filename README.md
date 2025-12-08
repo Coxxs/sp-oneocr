@@ -17,6 +17,6 @@ Snipaste PRO is required.
    > `11.2510.31.0` is the version of Snipping Tool.
 
 3. Configure Snipaste:
-   - Go to **Preferences...** -> **Output** -> **Text Recognition**
+   - Go to **Snipaste** -> **Preferences...** -> **Output** -> **Text Recognition**
    - Set **OCR Engine** to `Tesseract`
    - Set **Executable** to the path of `sponeocr.exe`
