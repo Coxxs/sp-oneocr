@@ -66,10 +66,10 @@ static HRESULT RunOCROnStream(OCRPipelineHandle pipelineHandle, IStream* pStream
         return E_FAIL;
     }
 
-    // Pad image if smaller than 200 x 200
-    if (width < 200 || height < 200) {
-        UINT newWidth = (width > 200) ? width : 200;
-        UINT newHeight = (height > 200) ? height : 200;
+    // Pad image if smaller than 50 x 50
+    if (width < 50 || height < 50) {
+        UINT newWidth = (width > 50) ? width : 50;
+        UINT newHeight = (height > 50) ? height : 50;
 
         ComPtr<IWICBitmap> pPaddedBitmap;
         hr = pIWICFactory->CreateBitmap(newWidth, newHeight, GUID_WICPixelFormat32bppPBGRA, WICBitmapCacheOnLoad, &pPaddedBitmap);
