@@ -7,7 +7,7 @@ Use Windows Snipping Tool's offline OCR (OneOCR) in Snipaste.
 Snipaste PRO is required.
 
 1. Download the latest release of [sp-oneocr](https://github.com/Coxxs/sp-oneocr/releases), and extract it.
-   - Install [Microsoft Visual C++ Redistributable (x64)](https://aka.ms/vc14/vc_redist.x64.exe) if not already installed.
+   - Install [Microsoft Visual C++ Redistributable v14 (x64)](https://aka.ms/vc14/vc_redist.x64.exe) if not already installed.
 
 2. Copy the following files to the same folder as `sponeocr.exe`:
    - `oneocr.dll`
