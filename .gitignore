@@ -416,3 +416,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+oneocr.onemodel
+onnxruntime.dll
+oneocr.dll
