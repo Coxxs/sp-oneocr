@@ -12,9 +12,9 @@ Snipaste PRO is required.
    - `onnxruntime.dll`
    - `oneocr.onemodel`
 
-   > You can find these files in the Snipping Tool installation folder, e.g.:
-   > `C:\Program Files\WindowsApps\Microsoft.ScreenSketch_11.2510.31.0_x64__8wekyb3d8bbwe\SnippingTool\`
-   > 11.2510.31.0 is the version of Snipping Tool.
+   > You can find these files in the Snipping Tool installation folder, e.g.:<br>
+   > `C:\Program Files\WindowsApps\Microsoft.ScreenSketch_11.2510.31.0_x64__8wekyb3d8bbwe\SnippingTool\`<br>
+   > `11.2510.31.0` is the version of Snipping Tool.
 
 3. Configure Snipaste:
    - Go to **Preferences...** -> **Output** -> **Text Recognition**
