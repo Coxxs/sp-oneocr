@@ -16,7 +16,9 @@ Snipaste PRO is required.
 
    > You can find these files in the Snipping Tool installation folder, e.g.:<br>
    > `C:\Program Files\WindowsApps\Microsoft.ScreenSketch_11.2510.31.0_x64__8wekyb3d8bbwe\SnippingTool\`<br>
-   > `11.2510.31.0` is the version of Snipping Tool.
+   > Note: `11.2510.31.0` is the version of Snipping Tool.
+   >
+   > Alternatively, you can download these files [here](https://archive.org/download/microsoft.-screen-sketch-2022.2510.31.0-neutral-8wekyb-3d-8bbwe/OneOCR.zip).
 
 3. Configure Snipaste:
    - Go to **Snipaste** -> **Preferences...** -> **Output** -> **Text Recognition**
