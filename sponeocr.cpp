@@ -302,9 +302,7 @@ int main(int argc, char* argv[]) {
     } else {
         std::ifstream file(inputPath, std::ios::binary | std::ios::ate);
         if (!file.is_open()) {
-            std::string msg = "Failed to open input file: " + inputPath;
-            std::cerr << msg << std::endl;
-            LogMessage(msg);
+            LogMessage("Failed to open input file: " + inputPath);
             return 1;
         }
         std::streamsize size = file.tellg();
@@ -313,9 +311,7 @@ int main(int argc, char* argv[]) {
         if (size > 0) {
             buffer.resize(size);
             if (!file.read(reinterpret_cast<char*>(buffer.data()), size)) {
-                std::string msg = "Failed to read input file.";
-                std::cerr << msg << std::endl;
-                LogMessage(msg);
+                LogMessage("Failed to read input file.");
                 return 1;
             }
         }
@@ -324,16 +320,13 @@ int main(int argc, char* argv[]) {
 
     if (buffer.empty()) {
         std::string msg = "No input data received.";
-        std::cerr << msg << std::endl;
         LogMessage(msg);
         return 1;
     }
 
     HRESULT hr = CoInitialize(NULL);
     if (FAILED(hr)) {
-        std::string msg = "CoInitialize failed. HR=" + std::to_string(hr);
-        std::cerr << msg << std::endl;
-        LogMessage(msg);
+        LogMessage("CoInitialize failed. HR=" + std::to_string(hr));
         return 1;
     }
 
@@ -347,9 +340,7 @@ int main(int argc, char* argv[]) {
     // 2. Initialize OCR
     LogMessage("Initializing OCR engine...");
     if (init(modelPath.c_str()) != 0) {
-        std::string msg = "Failed to init OCR engine. Ensure oneocr.onemodel is present at: " + modelPath;
-        std::cerr << msg << std::endl;
-        LogMessage(msg);
+        LogMessage("Failed to init OCR engine. Ensure oneocr.onemodel is present at: " + modelPath);
         CoUninitialize();
         return 1;
     }
@@ -383,9 +374,7 @@ int main(int argc, char* argv[]) {
     pStream->Release();
 
     if (FAILED(hr)) {
-        std::string msg = "OCR Processing Failed. HR=" + std::to_string(hr);
-        std::cerr << msg << std::endl;
-        LogMessage(msg);
+        LogMessage("OCR Processing Failed. HR=" + std::to_string(hr));
     } else {
         LogMessage("OCR Success. Generating Text...");
         // 5. Output Result
@@ -400,9 +389,7 @@ int main(int argc, char* argv[]) {
         } else {
             std::ofstream outFile(outputPath, std::ios::binary);
             if (!outFile.is_open()) {
-                std::string msg = "Failed to open output file: " + outputPath;
-                std::cerr << msg << std::endl;
-                LogMessage(msg);
+                LogMessage("Failed to open output file: " + outputPath);
             } else {
                 outFile << outputText;
                 LogMessage("Written Text to output file: " + outputPath);
