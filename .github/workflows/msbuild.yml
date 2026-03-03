@@ -26,10 +26,14 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-2022  # Uses Visual Studio 2022 (MSVC v143)
     strategy:
       matrix:
-        platform: [x64, ARM64]
+        include:
+          - platform: x64
+            runner: windows-2022
+          - platform: ARM64
+            runner: windows-11-arm
+    runs-on: ${{ matrix.runner }}
 
     steps:
     - uses: actions/checkout@v4
@@ -41,6 +45,52 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # /p:PlatformToolset=v143 overrides the project's v145 setting to use VS 2022 compilers.
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{matrix.platform}} /p:PlatformToolset=v143 ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Download OneOCR
+      shell: pwsh
+      run: |
+        Invoke-WebRequest -Uri 'https://archive.org/download/microsoft.-screen-sketch-2022.2510.31.0-neutral-8wekyb-3d-8bbwe/OneOCR.zip' -OutFile OneOCR.zip
+        Expand-Archive -Path OneOCR.zip -DestinationPath OneOCR
+        Write-Host "=== OneOCR.zip contents ==="
+        Get-ChildItem -Recurse OneOCR | ForEach-Object { Write-Host $_.FullName }
+
+    - name: Prepare test files
+      shell: pwsh
+      run: |
+        $buildDir = "${{ matrix.platform }}/Release"
+        $arch = if ('${{ matrix.platform }}' -eq 'ARM64') { 'arm64' } else { 'x64' }
+        $srcDir = "OneOCR/OneOCR-$arch"
+        Copy-Item "$srcDir/oneocr.dll" -Destination $buildDir
+        Copy-Item "$srcDir/onnxruntime.dll" -Destination $buildDir
+        Copy-Item "$srcDir/oneocr.onemodel" -Destination $buildDir
+        Write-Host "Copied OneOCR files from $srcDir to $buildDir"
+
+    - name: Generate test image
+      shell: powershell
+      run: |
+        $buildDir = "${{ matrix.platform }}/Release"
+        Add-Type -AssemblyName System.Drawing
+        $bmp = New-Object System.Drawing.Bitmap(300, 100)
+        $g = [System.Drawing.Graphics]::FromImage($bmp)
+        $g.Clear([System.Drawing.Color]::White)
+        $font = New-Object System.Drawing.Font("Arial", 24)
+        $g.DrawString("Hello World", $font, [System.Drawing.Brushes]::Black, 10, 30)
+        $font.Dispose()
+        $g.Dispose()
+        $bmp.Save("$buildDir/test.png", [System.Drawing.Imaging.ImageFormat]::Png)
+        $bmp.Dispose()
+        Write-Host "Generated test.png in $buildDir"
+
+    - name: Test OCR
+      shell: pwsh
+      run: |
+        $buildDir = "${{ matrix.platform }}/Release"
+        Write-Host "=== Running OCR test ==="
+        & "$buildDir/sponeocr.exe" "$buildDir/test.png" stdout
+        if ($LASTEXITCODE -ne 0) {
+          Write-Error "OCR test failed with exit code $LASTEXITCODE"
+          exit 1
+        }
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
