@@ -45,3 +45,4 @@ jobs:
         name: sponeocr-release
         path: |
           x64/Release/sponeocr.exe
+          x64/Release/ExtractOCR.bat
