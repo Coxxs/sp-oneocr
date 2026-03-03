@@ -11,7 +11,7 @@ Snipaste PRO is required.
 
 2. Run `ExtractOCR.bat` to extract the required OCR files from Snipping Tool.
 
-   > If Snipping Tool is not found, [install it](https://apps.microsoft.com/detail/9mz95kl8mr0l) from the Microsoft Store first.
+   > Snipping Tool comes pre-installed on Windows. If it's not found, [install it](https://apps.microsoft.com/detail/9mz95kl8mr0l) from the Microsoft Store first.
 
    <details>
    <summary>Alternative: Copy files manually</summary>
